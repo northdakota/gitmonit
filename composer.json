@@ -2,6 +2,8 @@
     "name": "northdakota/gitmonit",
     "license": "MIT",
     "require": {
-        "telegram-bot/api": "^2.3"
+        "telegram-bot/api": "^2.3",
+        "knplabs/github-api": "^2.7",
+        "php-http/guzzle6-adapter": "^1.1"
     }
 }
