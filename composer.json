@@ -1,0 +1,7 @@
+{
+    "name": "northdakota/gitmonit",
+    "license": "MIT",
+    "require": {
+        "telegram-bot/api": "^2.3"
+    }
+}
