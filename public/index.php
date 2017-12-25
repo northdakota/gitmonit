@@ -39,6 +39,11 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($di);
 
+    /**
+     * Disable views
+     */
+    $application->useImplicitView(false);
+
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {
