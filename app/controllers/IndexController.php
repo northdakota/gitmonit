@@ -30,6 +30,7 @@ class IndexController extends ControllerBase
 
             if (!$text) {
                 $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+                return;
             }
 
             $repos = explode("\n", $text);
@@ -39,6 +40,7 @@ class IndexController extends ControllerBase
                 list($user, $repo) = explode('/', $path);
                 if (!$user || !$repo) {
                     $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+                    return;
                 }
                 $repoModel = new Repo();
                 $repoModel->setChatId($message->getChat()->getId());
