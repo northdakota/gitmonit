@@ -18,6 +18,11 @@ $loader->registerDirs(
     ]
 );
 
+/**
+ * Composer Autoloader
+ */
+include __DIR__ . '/../vendor/autoload.php';
+
 $loader->register();
 
 $configFile = __DIR__ . "/config/config.php";
@@ -28,6 +33,34 @@ if (is_readable($configFile)) {
     $di->set("config", $config);
 }
 
+/**
+ * Include Autoloader
+ */
+include __DIR__ . '/../app/config/loader.php';
+
+/**
+ * Database connection is created based in the parameters defined in the configuration file
+ */
+$di->setShared('db', function () {
+    $config = $this->getConfig();
+
+    $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
+    $params = [
+        'host'     => $config->database->host,
+        'username' => $config->database->username,
+        'password' => $config->database->password,
+        'dbname'   => $config->database->dbname,
+        'charset'  => $config->database->charset
+    ];
+
+    if ($config->database->adapter == 'Postgresql') {
+        unset($params['charset']);
+    }
+
+    $connection = new $class($params);
+
+    return $connection;
+});
 
 // Create a console application
 $console = new ConsoleApp();

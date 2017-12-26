@@ -18,13 +18,19 @@ class Repo extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=20, nullable=false)
      */
-    protected $chatId;
+    protected $chat_id;
 
     /**
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
     protected $repository;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
+    protected $user;
 
     /**
      * @var string
@@ -48,7 +54,7 @@ class Repo extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=true)
      */
-    protected $lastMasterCommit;
+    protected $last_master_commit;
 
     /**
      * Method to set the value of field id
@@ -71,7 +77,20 @@ class Repo extends \Phalcon\Mvc\Model
      */
     public function setChatId($chatId)
     {
-        $this->chatId = $chatId;
+        $this->chat_id = $chatId;
+
+        return $this;
+    }
+
+    /**
+     * Method to set the value of field user
+     *
+     * @param string $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -129,14 +148,14 @@ class Repo extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field lastMasterCommit
+     * Method to set the value of field last_master_commit
      *
      * @param string $lastMasterCommit
      * @return $this
      */
     public function setLastMasterCommit($lastMasterCommit)
     {
-        $this->lastMasterCommit = $lastMasterCommit;
+        $this->last_master_commit = $lastMasterCommit;
 
         return $this;
     }
@@ -158,7 +177,17 @@ class Repo extends \Phalcon\Mvc\Model
      */
     public function getChatId()
     {
-        return $this->chatId;
+        return $this->chat_id;
+    }
+
+    /**
+     * Returns the value of field user
+     *
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -208,7 +237,7 @@ class Repo extends \Phalcon\Mvc\Model
      */
     public function getLastMasterCommit()
     {
-        return $this->lastMasterCommit;
+        return $this->last_master_commit;
     }
 
     /**

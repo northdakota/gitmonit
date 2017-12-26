@@ -35,6 +35,11 @@ try {
     include APP_PATH . '/config/loader.php';
 
     /**
+     * Composer Autoloader
+     */
+    include BASE_PATH . '/vendor/autoload.php';
+
+    /**
      * Handle the request
      */
     $application = new \Phalcon\Mvc\Application($di);
