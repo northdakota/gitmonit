@@ -27,11 +27,19 @@ class IndexController extends ControllerBase
             $text = $message->getText();
             $text = str_replace('/addrepo', '', $text);
             $text = trim($text);
+
+            if (!$text) {
+                $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+            }
+
             $repos = explode("\n", $text);
             foreach ($repos as $url) {
                 $path = parse_url($url, PHP_URL_PATH);
                 $path = trim($path, '/');
                 list($user, $repo) = explode('/', $path);
+                if (!$user || !$repo) {
+                    $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+                }
                 $repoModel = new Repo();
                 $repoModel->setChatId($message->getChat()->getId());
                 $repoModel->setBranches(json_encode([]));
