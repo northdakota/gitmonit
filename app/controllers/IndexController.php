@@ -30,6 +30,7 @@ class IndexController extends ControllerBase
 
             if (!$text) {
                 $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+
                 return;
             }
 
@@ -40,8 +41,27 @@ class IndexController extends ControllerBase
                 list($user, $repo) = explode('/', $path);
                 if (!$user || !$repo) {
                     $bot->sendMessage($message->getChat()->getId(), 'Wrong format!');
+
                     return;
                 }
+
+                $repoModel = Repo::findFirst(
+                    [
+                        "user = :user: AND repository = :repository: AND chat_id = :chat_id:",
+                        'bind' => [
+                            'user'       => $user,
+                            'repository' => $repo,
+                            'chat_id'    => $message->getChat()->getId(),
+                        ],
+                    ]
+                );
+
+                if ($repoModel || $repoModel->getId()) {
+                    $bot->sendMessage($message->getChat()->getId(), 'You have already monitoring this repository');
+
+                    return;
+                }
+
                 $repoModel = new Repo();
                 $repoModel->setChatId($message->getChat()->getId());
                 $repoModel->setBranches(json_encode([]));
