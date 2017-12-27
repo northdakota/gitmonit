@@ -56,7 +56,7 @@ class IndexController extends ControllerBase
                     ]
                 );
 
-                if (!$repoModel || !$repoModel->getId()) {
+                if ($repoModel && $repoModel->getId()) {
                     $bot->sendMessage($message->getChat()->getId(), 'You have already monitoring this repository');
 
                     return;
